@@ -1,0 +1,37 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    # Public so the kernel's tree-shaking keeps these reachable for the
+    # TwigBootstrapper, which resolves them at boot/render time.
+    public: true
+
+  AchttienVijftien\Bundle\WpTwigBundle\TwigEnvironmentHolder: ~
+
+  # The host-owned Twig environment, exposed under the id consumers
+  # (e.g. the UX bundles) expect.
+  twig:
+    class: Twig\Environment
+    factory: ['@AchttienVijftien\Bundle\WpTwigBundle\TwigEnvironmentHolder', 'get']
+
+  Twig\Environment:
+    alias: twig
+
+  # Delegates to the host environment's loader; only instantiated lazily at
+  # render time, after the host built its environment (required by e.g.
+  # ux.twig_component.component_template_finder).
+  twig.loader:
+    class: Twig\Loader\LoaderInterface
+    factory: ['@twig', 'getLoader']
+
+  AchttienVijftien\Bundle\WpTwigBundle\Adapter\TimberAdapter: ~
+
+  AchttienVijftien\Bundle\WpTwigBundle\TwigAdapter:
+    alias: AchttienVijftien\Bundle\WpTwigBundle\Adapter\TimberAdapter
+
+  # $runtimes (twig.runtime services keyed by class) is injected by
+  # Compiler\TwigRuntimeLocatorPass; $holder autowires.
+  AchttienVijftien\Bundle\WpTwigBundle\TwigBootstrapper:
+    arguments:
+      $extensions: !tagged_iterator twig.extension
+      $configurators: !tagged_iterator wp_twig.configurator

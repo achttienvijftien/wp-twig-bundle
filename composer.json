@@ -1,0 +1,51 @@
+{
+  "name": "achttienvijftien/wp-twig-bundle",
+  "description": "Bridges a host-owned Twig environment (Timber, ...) into the 1815 service container as the twig service",
+  "type": "library",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "1815",
+      "email": "it@1815.nl"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "achttienvijftien/service-container": "^1.2",
+    "symfony/yaml": "^6.4 || ^7.0",
+    "twig/twig": "^3.0"
+  },
+  "require-dev": {
+    "achttienvijftien/building-techniques": "^1.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "phpunit/phpunit": "^9.5",
+    "yoast/phpunit-polyfills": "^1.1"
+  },
+  "suggest": {
+    "timber/timber": "Host whose environment the TimberAdapter bridges"
+  },
+  "autoload": {
+    "psr-4": {
+      "AchttienVijftien\\Bundle\\WpTwigBundle\\": "src/"
+    },
+    "files": [
+      "src/bootstrap.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AchttienVijftien\\Bundle\\WpTwigBundle\\Test\\": "tests/php/"
+    }
+  },
+  "scripts": {
+    "format": "phpcbf --report-summary --report-source",
+    "lint": "phpcs"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

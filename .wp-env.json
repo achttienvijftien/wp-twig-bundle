@@ -1,0 +1,8 @@
+{
+  "phpVersion": "8.4",
+  "port": 8932,
+  "testsPort": 8933,
+  "mappings": {
+    "wp-content/plugins/wp-twig-bundle": "."
+  }
+}

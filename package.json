@@ -1,0 +1,15 @@
+{
+  "name": "@achttienvijftien/wp-twig-bundle",
+  "description": "Bridges a host-owned Twig environment (Timber, ...) into the 1815 service container as the twig service",
+  "author": "1815 <it@1815.nl>",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "scripts": {
+    "wp-env": "wp-env",
+    "test:php:unit": "wp-env run tests-cli --env-cwd=wp-content/plugins/wp-twig-bundle vendor/bin/phpunit",
+    "test": "rm -rf var/cache && pnpm run test:php:unit"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^10.0.0"
+  }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Coding Standards for wp-twig-bundle">
+    <description>Sniffs for wp-twig-bundle</description>
+
+    <!-- Use colors in output. -->
+    <arg name="colors"/>
+
+    <arg value="ps"/>
+
+    <arg name="extensions" value="php"/>
+
+    <file>./src</file>
+    <file>./tests</file>
+
+    <rule ref="1815BuildingTechniques"/>
+
+    <config name="testVersion" value="8.3-"/>
+    <rule ref="PHPCompatibilityWP" />
+
+    <!--
+        TwigAdapter is a standalone seam interface whose camelCase method names
+        (onEnvironment, addNamespace) deliberately follow the Twig/Symfony API it
+        bridges. WPCS already exempts classes that extend or implement framework
+        types; the standalone interface needs the same exemption explicitly.
+    -->
+    <rule ref="WordPress.NamingConventions.ValidFunctionName">
+        <exclude-pattern>*/src/TwigAdapter\.php</exclude-pattern>
+    </rule>
+
+    <!--
+        The $namespace and $class parameter names mirror the Twig loader and
+        RuntimeLoaderInterface APIs these classes bridge; renaming them would
+        break named-argument compatibility with the framework-facing seam.
+    -->
+    <rule ref="Universal.NamingConventions.NoReservedKeywordParameterNames">
+        <exclude-pattern>*/src/TwigAdapter\.php</exclude-pattern>
+        <exclude-pattern>*/src/Adapter/TimberAdapter\.php</exclude-pattern>
+        <exclude-pattern>*/src/RuntimeLoader/ContainerRuntimeLoader\.php</exclude-pattern>
+    </rule>
+
+    <!--
+        The sniff suggests native type hints like iterable<ExtensionInterface>,
+        which is docblock-only generics syntax and not valid PHP; the native
+        hint must stay plain iterable.
+    -->
+    <rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint">
+        <exclude-pattern>*/src/TwigBootstrapper\.php</exclude-pattern>
+    </rule>
+</ruleset>
