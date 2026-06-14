@@ -32,8 +32,16 @@ as the `twig` service.
 
 ## Usage
 
-The package self-registers its bundle through composer `autoload.files`
-(filter `achttienvijftien/container_bundles`). Once the container boots:
+The bundle registers like a native Symfony bundle: list it in the project's
+`config/bundles.php` (a Flex recipe writes that entry on `composer require`):
+
+```php
+return [
+	AchttienVijftien\Bundle\WpTwigBundle\TwigBundle::class => [ 'all' => true ],
+];
+```
+
+Once the container boots:
 
 ```php
 $twig = apply_filters( 'achttienvijftien/container', null )->get( 'twig' );

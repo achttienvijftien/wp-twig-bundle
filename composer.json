@@ -28,10 +28,7 @@
   "autoload": {
     "psr-4": {
       "AchttienVijftien\\Bundle\\WpTwigBundle\\": "src/"
-    },
-    "files": [
-      "src/bootstrap.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
@@ -46,6 +43,11 @@
     "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.0.x-dev"
     }
   }
 }

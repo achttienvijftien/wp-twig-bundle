@@ -2,14 +2,25 @@
 /**
  * PHPUnit bootstrap file: WordPress test suite via wp-env.
  *
- * The package autoloader is required before WordPress boots, so the
- * composer autoload.files entry (src/bootstrap.php) runs first and its
- * $wp_filter pre-seed pattern is exercised exactly as in production.
+ * The bundle registers like a native Symfony bundle: a project lists it in
+ * config/bundles.php (a Flex recipe writes that entry on composer require).
+ * This suite reproduces that by adding the bundle to the container_bundles
+ * filter itself, since the package no longer self-registers.
  *
  * @package AchttienVijftien\Bundle\WpTwigBundle\Test
  */
 
 require_once dirname( __DIR__ ) . '/vendor/autoload.php';
+
+// Register this package's bundle the way a project's config/bundles.php does.
+$GLOBALS['wp_filter']['achttienvijftien/container_bundles'][10][] = [
+	'accepted_args' => 1,
+	'function'      => static function ( array $bundles ): array {
+		$bundles[ AchttienVijftien\Bundle\WpTwigBundle\TwigBundle::class ] ??= [ 'all' => true ];
+
+		return $bundles;
+	},
+];
 
 // Simulate a real project where other bundles (Stud, theme, plugins) register
 // and load BEFORE this package's bundle: priority 5 runs ahead of the
