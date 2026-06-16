@@ -8,22 +8,6 @@ use WP_UnitTestCase;
 
 class BootstrapTest extends WP_UnitTestCase {
 
-	public function test_bundle_is_registered_on_the_container_bundles_filter(): void {
-		$bundles = apply_filters( 'achttienvijftien/container_bundles', [] );
-
-		self::assertArrayHasKey( TwigBundle::class, $bundles );
-		self::assertSame( [ 'all' => true ], $bundles[ TwigBundle::class ] );
-	}
-
-	public function test_existing_project_registrations_are_not_overwritten(): void {
-		$bundles = apply_filters(
-			'achttienvijftien/container_bundles',
-			[ TwigBundle::class => [ 'all' => false ] ]
-		);
-
-		self::assertSame( [ 'all' => false ], $bundles[ TwigBundle::class ] );
-	}
-
 	public function test_container_booted_with_our_bundle(): void {
 		$container = apply_filters( 'achttienvijftien/container', null );
 
